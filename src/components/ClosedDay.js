@@ -15,6 +15,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     color: Colors.Black.color,
   },
+  textGreen: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    fontFamily: 'Roboto',
+    color: Colors.Green.color,
+    marginLeft: 10,
+  },
   openingHoursDays: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -32,11 +39,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const ClosedDay = ({day, closed}) =>
-  closed ? (
+const ClosedDay = ({isToday, day, isClosed}) =>
+  isClosed ? (
     <View style={styles.openingHoursDays}>
       <View style={styles.todayContainer}>
         <Text style={styles.textBlack}>{day}</Text>
+        {isToday ? <Text style={styles.textGreen}>TODAY</Text> : null}
       </View>
 
       <View>
