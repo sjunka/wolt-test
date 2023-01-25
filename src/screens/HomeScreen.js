@@ -5,7 +5,6 @@ import {Colors} from '../utils/Colors';
 
 import OpeningHeader from '../components/OpeningHeader';
 import ClosedDay from '../components/ClosedDay';
-import TodayDay from '../components/TodayDay';
 import OpenDay from '../components/OpenDay';
 import useGetOpeningHours from '../hooks/useGetOpeningHours';
 
