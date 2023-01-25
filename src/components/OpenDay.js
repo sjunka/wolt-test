@@ -45,7 +45,9 @@ const styles = StyleSheet.create({
 const OpenDay = ({isToday, day, openingHours}) => (
   <View style={styles.openingHoursDays}>
     <View style={styles.todayContainer}>
-      <Text style={styles.textBlack}>{day.toUpperCase()}</Text>
+      <Text style={styles.textBlack}>
+        {day.charAt(0).toUpperCase() + day.substring(1)}
+      </Text>
       {isToday ? <Text style={styles.textGreen}>TODAY</Text> : null}
     </View>
 
