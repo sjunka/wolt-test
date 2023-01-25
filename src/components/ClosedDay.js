@@ -43,7 +43,7 @@ const ClosedDay = ({isToday, day, isClosed}) =>
   isClosed ? (
     <View style={styles.openingHoursDays}>
       <View style={styles.todayContainer}>
-        <Text style={styles.textBlack}>{day}</Text>
+        <Text style={styles.textBlack}>{day.toUpperCase()}</Text>
         {isToday ? <Text style={styles.textGreen}>TODAY</Text> : null}
       </View>
 

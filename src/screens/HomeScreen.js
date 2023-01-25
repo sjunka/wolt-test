@@ -21,11 +21,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 15,
     width: '70%',
-    height: '70%',
+    height: '60%',
     backgroundColor: Colors.Grey2.color,
   },
   openingHours: {
-    width: '90%',
+    width: '100%',
     height: '90%',
     borderRadius: 15,
     shadowColor: Colors.Grey3.color,
@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
 const HomeScreen = ({navigation}) => {
   const {dataOpeningTimes, loadingOpeningTimes, errorOpeningTimesResponse} =
     useGetOpeningHours();
+
+  const currentDayNumber = (new Date().getDay() + 7 - 1) % 7; // Monday first(0), Sunday last
 
   if (errorOpeningTimesResponse) {
     return (
@@ -84,9 +86,79 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.openingHours}>
             <View style={styles.openingHoursContainer}>
               <OpeningHeader />
-              <ClosedDay day="Monday" closed />
-              <TodayDay day="Tuesday" today openingHours="10 AM - 6 PM" />
-              <OpenDay day="Wednesday" openingHours="12 PM - 9 PM" />
+
+              {Object.entries(dataOpeningTimes).map(
+                ([dayName, hoursData], index, array) => {
+                  const isClosed = hoursData.length === 0;
+
+                  if (isClosed) {
+                    return (
+                      <ClosedDay
+                        key={dayName}
+                        day={dayName}
+                        isToday={index === currentDayNumber}
+                        isClosed
+                      />
+                    );
+                  }
+
+                  let start = 0;
+                  let end = hoursData.length - 1;
+                  let hoursDataCopy = [...hoursData];
+
+                  if (hoursData[end].type === 'open') {
+                    const nextIndex = index === array.length ? 0 : index + 1;
+                    const nextDayClosing = array[nextIndex][1][0].value;
+                    hoursDataCopy = hoursDataCopy.concat({
+                      type: 'close',
+                      value: nextDayClosing,
+                    });
+                  }
+
+                  if (hoursData[start].type === 'close') {
+                    hoursDataCopy = hoursDataCopy.slice(1);
+                  }
+
+                  const openClosePairs = hoursDataCopy.reduce(
+                    (acc, curr, i) => {
+                      return i % 2 === 0
+                        ? [...acc, [curr.value]]
+                        : [
+                            ...acc.slice(0, -1),
+                            [...acc.slice(-1)[0], curr.value],
+                          ];
+                    },
+                    [],
+                  );
+
+                  const openingHoursStr = openClosePairs.reduce(
+                    (acc, openClosePair, i) => {
+                      const openTimeHours = openClosePair[0] / 60 / 60;
+                      const closeTimeHours = openClosePair[1] / 60 / 60;
+
+                      return `${i === 0 ? acc : `${acc}, `}${
+                        openTimeHours % 12 !== 0
+                          ? openTimeHours % 12
+                          : openTimeHours
+                      } ${openTimeHours < 12 ? 'AM' : 'PM'} - ${
+                        closeTimeHours % 12 !== 0
+                          ? closeTimeHours % 12
+                          : closeTimeHours
+                      } ${closeTimeHours < 12 ? 'AM' : 'PM'}`;
+                    },
+                    '',
+                  );
+
+                  return (
+                    <OpenDay
+                      key={dayName}
+                      day={dayName}
+                      isToday={index === currentDayNumber}
+                      openingHours={openingHoursStr}
+                    />
+                  );
+                },
+              )}
             </View>
           </View>
         </View>
