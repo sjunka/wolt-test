@@ -38,6 +38,21 @@ npm install
 
 ```
 cd ios/ pod install
+
+```
+
+### Troubleshoot while installing
+
+- if you get an error while installing the packages due to different versions, try to run the following command
+
+```
+npm config set legacy-peer-deps true
+```
+
+- then install the depencies again
+
+```
+npm install
 ```
 
 ### Executing Test
