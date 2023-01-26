@@ -73,7 +73,7 @@ const HomeScreen = ({}) => {
   const {dataOpeningTimes, loadingOpeningTimes, errorOpeningTimesResponse} =
     useGetOpeningHours();
 
-  const displayOpeningHours = (data, dayNumberToday) => {
+  const DisplayOpeningHours = ({data, dayNumberToday}) => {
     return Object.entries(data).map(([dayName, hoursData], index, array) => {
       const isClosed = hoursData.length === 0;
 
@@ -172,7 +172,10 @@ const HomeScreen = ({}) => {
           <View style={styles.openingHours}>
             <View style={styles.openingHoursContainer}>
               <OpeningHeader />
-              <>{displayOpeningHours(dataOpeningTimes, currentDayNumber)}</>
+              <DisplayOpeningHours
+                data={dataOpeningTimes}
+                dayNumberToday={currentDayNumber}
+              />
             </View>
           </View>
         </View>
