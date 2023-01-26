@@ -1,4 +1,4 @@
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text, SafeAreaView, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {Colors} from '../utils/Colors';
@@ -7,6 +7,8 @@ import OpeningHeader from '../components/OpeningHeader';
 import ClosedDay from '../components/ClosedDay';
 import OpenDay from '../components/OpenDay';
 import useGetOpeningHours from '../hooks/useOpeningHours';
+
+// import woltImage from '../assets/images/wolt_image.png';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,6 +25,24 @@ const styles = StyleSheet.create({
     height: '60%',
     backgroundColor: Colors.Grey2.color,
   },
+
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
+  },
+  loadingText: {
+    color: Colors.Black.color,
+    fontSize: 24,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+  },
+  errorText: {
+    color: Colors.Black.color,
+    fontSize: 18,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+  },
+
   openingHours: {
     width: '100%',
     height: '90%',
@@ -56,7 +76,7 @@ const HomeScreen = ({}) => {
         <View style={styles.contentArea}>
           <View style={styles.openingHours}>
             <View style={styles.openingHoursContainerErrorLoading}>
-              <Text>Oops something went wrong...</Text>
+              <Text style={styles.errorText}>Oops something went wrong...</Text>
             </View>
           </View>
         </View>
@@ -69,9 +89,11 @@ const HomeScreen = ({}) => {
       <SafeAreaView style={styles.container}>
         <View style={styles.contentArea}>
           <View style={styles.openingHours}>
-            <View style={styles.openingHoursContainerErrorLoading}>
-              <Text>Loading...</Text>
-            </View>
+            <Image
+              source={require('../assets/images/wolt_image.png')}
+              style={styles.backgroundImage}
+            />
+            <Text style={styles.loadingText}>Loading...</Text>
           </View>
         </View>
       </SafeAreaView>
