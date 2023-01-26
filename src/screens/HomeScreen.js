@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, SafeAreaView, Image} from 'react-native';
+import { View, Text, SafeAreaView, Image, Platform } from 'react-native';
 
-import {StyleSheet} from 'react-native';
-import {Colors} from '../utils/Colors';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../utils/Colors';
 
 import OpeningHeader from '../components/OpeningHeader';
 import ClosedDay from '../components/ClosedDay';
@@ -36,20 +36,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
     alignSelf: 'center',
     fontWeight: 'bold',
+    fontFamily: 'Roboto',
   },
   errorText: {
     color: Colors.Black.color,
     fontSize: 18,
     alignSelf: 'center',
     fontWeight: 'bold',
+    fontFamily: 'Roboto',
   },
 
   openingHours: {
     width: '100%',
-    height: '90%',
+    height: Platform.OS === 'ios' ? '75%' : '90%',
     borderRadius: 15,
     shadowColor: Colors.Grey3.color,
-    shadowOffset: {width: 0.5, height: 0.5},
+    shadowOffset: { width: 0.5, height: 0.5 },
     shadowOpacity: 0.9,
     shadowRadius: 5,
     elevation: 5,
@@ -65,11 +67,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = ({}) => {
-  const {dataOpeningTimes, loadingOpeningTimes, errorOpeningTimesResponse} =
+const HomeScreen = ({ }) => {
+  const { dataOpeningTimes, loadingOpeningTimes, errorOpeningTimesResponse } =
     useGetOpeningHours();
 
-  const {HOME} = homeScreenStr;
+  const { HOME } = homeScreenStr;
   const currentDayNumber = (new Date().getDay() + 7 - 1) % 7;
 
   if (errorOpeningTimesResponse) {
@@ -149,9 +151,9 @@ const HomeScreen = ({}) => {
                       return i % 2 === 0
                         ? [...acc, [curr.value]]
                         : [
-                            ...acc.slice(0, -1),
-                            [...acc.slice(-1)[0], curr.value],
-                          ];
+                          ...acc.slice(0, -1),
+                          [...acc.slice(-1)[0], curr.value],
+                        ];
                     },
                     [],
                   );
@@ -161,15 +163,13 @@ const HomeScreen = ({}) => {
                       const openTimeHours = openClosePair[0] / 60 / 60;
                       const closeTimeHours = openClosePair[1] / 60 / 60;
 
-                      return `${i === 0 ? acc : `${acc}, `}${
-                        openTimeHours % 12 !== 0
-                          ? openTimeHours % 12
-                          : openTimeHours
-                      } ${openTimeHours < 12 ? 'AM' : 'PM'} - ${
-                        closeTimeHours % 12 !== 0
+                      return `${i === 0 ? acc : `${acc}, `}${openTimeHours % 12 !== 0
+                        ? openTimeHours % 12
+                        : openTimeHours
+                        } ${openTimeHours < 12 ? 'AM' : 'PM'} - ${closeTimeHours % 12 !== 0
                           ? closeTimeHours % 12
                           : closeTimeHours
-                      } ${closeTimeHours < 12 ? 'AM' : 'PM'}`;
+                        } ${closeTimeHours < 12 ? 'AM' : 'PM'}`;
                     },
                     '',
                   );
