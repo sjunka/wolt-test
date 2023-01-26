@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import PropTypes from 'prop-types';
 import {Colors} from '../utils/Colors';
 import homeScreenStr from '../constants/homeScreenStr';
