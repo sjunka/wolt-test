@@ -6,7 +6,7 @@ import {Colors} from '../utils/Colors';
 import OpeningHeader from '../components/OpeningHeader';
 import ClosedDay from '../components/ClosedDay';
 import OpenDay from '../components/OpenDay';
-import useGetOpeningHours from '../hooks/useGetOpeningHours';
+import useGetOpeningHours from '../hooks/useOpeningHours';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,11 +44,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({}) => {
   const {dataOpeningTimes, loadingOpeningTimes, errorOpeningTimesResponse} =
     useGetOpeningHours();
 
-  const currentDayNumber = (new Date().getDay() + 7 - 1) % 7; // Monday first(0), Sunday last
+  const currentDayNumber = (new Date().getDay() + 7 - 1) % 7;
 
   if (errorOpeningTimesResponse) {
     return (
@@ -107,7 +107,9 @@ const HomeScreen = ({navigation}) => {
 
                   if (hoursData[end].type === 'open') {
                     const nextIndex = index === array.length ? 0 : index + 1;
+
                     const nextDayClosing = array[nextIndex][1][0].value;
+
                     hoursDataCopy = hoursDataCopy.concat({
                       type: 'close',
                       value: nextDayClosing,

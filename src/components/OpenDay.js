@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import PropTypes from 'prop-types';
 import {Colors} from '../utils/Colors';
 
 const styles = StyleSheet.create({
@@ -56,5 +57,17 @@ const OpenDay = ({isToday, day, openingHours}) => (
     </View>
   </View>
 );
+
+OpenDay.propTypes = {
+  isToday: PropTypes.bool,
+  day: PropTypes.string,
+  isClosed: PropTypes.bool,
+};
+
+OpenDay.defaultProps = {
+  isToday: false,
+  day: '',
+  isClosed: true,
+};
 
 export default OpenDay;

@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const openingHoursHeader = () => (
+const OpeningHoursHeader = () => (
   <View style={styles.openingHoursHeader}>
     <ClockIconOutline color={Colors.Grey3.color} fill="none" size={24} />
     <Text style={styles.textHeader}>Opening hours</Text>
   </View>
 );
 
-export default openingHoursHeader;
+export default OpeningHoursHeader;
