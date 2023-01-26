@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import { Colors } from '../utils/Colors';
+import {Colors} from '../utils/Colors';
 import homeScreenStr from '../constants/homeScreenStr';
 
 const styles = StyleSheet.create({
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     color: Colors.Black.color,
   },
   textGreen: {
-    fontSize: 12,
+    fontSize: Platform.OS === 'ios' ? 12 : 14,
     fontWeight: 'bold',
     fontFamily: 'Roboto',
     color: Colors.Green.color,
@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const ClosedDay = ({ isToday, day, isClosed }) => {
-  const { HOME } = homeScreenStr;
+const ClosedDay = ({isToday, day, isClosed}) => {
+  const {HOME} = homeScreenStr;
   return isClosed ? (
     <View style={styles.openingHoursDays}>
       <View style={styles.todayContainer}>
