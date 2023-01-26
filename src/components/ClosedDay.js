@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import {Colors} from '../utils/Colors';
+import homeScreenStr from '../constants/homeScreenStr';
 
 const styles = StyleSheet.create({
   textGray: {
@@ -40,8 +41,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const ClosedDay = ({isToday, day, isClosed}) =>
-  isClosed ? (
+const ClosedDay = ({isToday, day, isClosed}) => {
+  const {HOME} = homeScreenStr;
+  return isClosed ? (
     <View style={styles.openingHoursDays}>
       <View style={styles.todayContainer}>
         <Text style={styles.textBlack}>
@@ -51,10 +53,11 @@ const ClosedDay = ({isToday, day, isClosed}) =>
       </View>
 
       <View>
-        <Text style={styles.textGray}>Closed</Text>
+        <Text style={styles.textGray}>{HOME.CLOSED}</Text>
       </View>
     </View>
   ) : null;
+};
 
 ClosedDay.propTypes = {
   isToday: PropTypes.bool,

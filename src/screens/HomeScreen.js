@@ -1,5 +1,6 @@
+import React from 'react';
 import {View, Text, SafeAreaView, Image} from 'react-native';
-import React, {useEffect, useState} from 'react';
+
 import {StyleSheet} from 'react-native';
 import {Colors} from '../utils/Colors';
 
@@ -8,7 +9,7 @@ import ClosedDay from '../components/ClosedDay';
 import OpenDay from '../components/OpenDay';
 import useGetOpeningHours from '../hooks/useOpeningHours';
 
-// import woltImage from '../assets/images/wolt_image.png';
+import homeScreenStr from '../constants/homeScreenStr';
 
 const styles = StyleSheet.create({
   container: {
@@ -68,6 +69,7 @@ const HomeScreen = ({}) => {
   const {dataOpeningTimes, loadingOpeningTimes, errorOpeningTimesResponse} =
     useGetOpeningHours();
 
+  const {HOME} = homeScreenStr;
   const currentDayNumber = (new Date().getDay() + 7 - 1) % 7;
 
   if (errorOpeningTimesResponse) {
@@ -76,7 +78,7 @@ const HomeScreen = ({}) => {
         <View style={styles.contentArea}>
           <View style={styles.openingHours}>
             <View style={styles.openingHoursContainerErrorLoading}>
-              <Text style={styles.errorText}>Oops something went wrong...</Text>
+              <Text style={styles.errorText}>{HOME.ERROR}</Text>
             </View>
           </View>
         </View>
@@ -93,7 +95,7 @@ const HomeScreen = ({}) => {
               source={require('../assets/images/wolt_image.png')}
               style={styles.backgroundImage}
             />
-            <Text style={styles.loadingText}>Loading...</Text>
+            <Text style={styles.loadingText}>{HOME.LOADING}</Text>
           </View>
         </View>
       </SafeAreaView>

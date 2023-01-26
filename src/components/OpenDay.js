@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import {Colors} from '../utils/Colors';
+import homeScreenStr from '../constants/homeScreenStr';
 
 const styles = StyleSheet.create({
   textBlack: {
@@ -43,20 +44,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const OpenDay = ({isToday, day, openingHours}) => (
-  <View style={styles.openingHoursDays}>
-    <View style={styles.todayContainer}>
-      <Text style={styles.textBlack}>
-        {day.charAt(0).toUpperCase() + day.substring(1)}
-      </Text>
-      {isToday ? <Text style={styles.textGreen}>TODAY</Text> : null}
-    </View>
+const OpenDay = ({isToday, day, openingHours}) => {
+  const {HOME} = homeScreenStr;
+  return (
+    <View style={styles.openingHoursDays}>
+      <View style={styles.todayContainer}>
+        <Text style={styles.textBlack}>
+          {day.charAt(0).toUpperCase() + day.substring(1)}
+        </Text>
+        {isToday ? <Text style={styles.textGreen}>{HOME.TODAY}</Text> : null}
+      </View>
 
-    <View>
-      <Text style={styles.textBlackNormal}>{openingHours}</Text>
+      <View>
+        <Text style={styles.textBlackNormal}>{openingHours}</Text>
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 OpenDay.propTypes = {
   isToday: PropTypes.bool,

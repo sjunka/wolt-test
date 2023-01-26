@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Colors} from '../utils/Colors';
-
 import {ClockIcon as ClockIconOutline} from 'react-native-heroicons/outline';
+import homeScreenStr from '../constants/homeScreenStr';
 
 const styles = StyleSheet.create({
   openingHoursHeader: {
@@ -26,11 +26,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const OpeningHoursHeader = () => (
-  <View style={styles.openingHoursHeader}>
-    <ClockIconOutline color={Colors.Grey3.color} fill="none" size={24} />
-    <Text style={styles.textHeader}>Opening hours</Text>
-  </View>
-);
+const OpeningHoursHeader = () => {
+  const {HOME} = homeScreenStr;
+  return (
+    <View style={styles.openingHoursHeader}>
+      <ClockIconOutline color={Colors.Grey3.color} fill="none" size={24} />
+      <Text style={styles.textHeader}>{HOME.OPENING_HOURS}</Text>
+    </View>
+  );
+};
 
 export default OpeningHoursHeader;
