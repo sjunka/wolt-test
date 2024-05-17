@@ -4,7 +4,7 @@ This app displays the features requested by the challenge.
 
 ## Description
 
-RN app that fetches Data and then displays in a view accordinly
+RN app that fetches Data and then displays information according to Figma design, scalable components and folder structure
 
 ## Getting Started
 
